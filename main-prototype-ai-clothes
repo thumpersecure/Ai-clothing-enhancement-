@@ -1,0 +1,448 @@
+import React, { useState, useRef, useCallback } from ‘react’;
+import { Camera, Upload, Zap, Palette, Ruler, Eye, Download, RotateCcw } from ‘lucide-react’;
+
+const BodyOptimizationApp = () => {
+const [currentStep, setCurrentStep] = useState(1);
+const [uploadedImage, setUploadedImage] = useState(null);
+const [bodyAnalysis, setBodyAnalysis] = useState(null);
+const [selectedDesigns, setSelectedDesigns] = useState([]);
+const [isProcessing, setIsProcessing] = useState(false);
+const fileInputRef = useRef(null);
+
+// Simulated body analysis based on common body types
+const analyzeBody = useCallback((imageData) => {
+setIsProcessing(true);
+
+```
+// Simulate AI processing delay
+setTimeout(() => {
+  // Mock analysis results
+  const analysis = {
+    bodyType: "Pear",
+    measurements: {
+      shoulders: "38 inches",
+      chest: "36 inches", 
+      waist: "32 inches",
+      hips: "40 inches"
+    },
+    recommendations: [
+      "Emphasize shoulder line to balance hips",
+      "Use vertical patterns to elongate torso",
+      "Strategic color blocking to create waist definition",
+      "A-line silhouettes to flatter hip area"
+    ],
+    focusAreas: ["shoulders", "waist", "torso"]
+  };
+  
+  setBodyAnalysis(analysis);
+  setIsProcessing(false);
+  setCurrentStep(2);
+}, 2000);
+```
+
+}, []);
+
+const handleImageUpload = (event) => {
+const file = event.target.files[0];
+if (file) {
+const reader = new FileReader();
+reader.onload = (e) => {
+setUploadedImage(e.target.result);
+analyzeBody(e.target.result);
+};
+reader.readAsDataURL(file);
+}
+};
+
+// Mock design patterns optimized for different body types
+const designPatterns = [
+{
+id: 1,
+name: “Vertical Emphasis”,
+pattern: “Linear gradient with vertical stripes”,
+effect: “Creates length and reduces width appearance”,
+svg: (
+<svg viewBox="0 0 200 200" className="w-full h-full">
+<defs>
+<linearGradient id="vertical1" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stopColor="#3b82f6" />
+<stop offset="20%" stopColor="#1e40af" />
+<stop offset="40%" stopColor="#3b82f6" />
+<stop offset="60%" stopColor="#1e40af" />
+<stop offset="80%" stopColor="#3b82f6" />
+<stop offset="100%" stopColor="#1e40af" />
+</linearGradient>
+</defs>
+<rect width="200" height="200" fill="url(#vertical1)" />
+</svg>
+)
+},
+{
+id: 2,
+name: “Shoulder Enhancement”,
+pattern: “Horizontal lines at shoulder level”,
+effect: “Broadens shoulder appearance”,
+svg: (
+<svg viewBox="0 0 200 200" className="w-full h-full">
+<rect width="200" height="200" fill="#f1f5f9" />
+<rect x="0" y="20" width="200" height="8" fill="#059669" />
+<rect x="0" y="40" width="200" height="8" fill="#047857" />
+<rect x="0" y="60" width="200" height="8" fill="#059669" />
+<rect x="20" y="80" width="160" height="120" fill="#d1fae5" />
+</svg>
+)
+},
+{
+id: 3,
+name: “Waist Definition”,
+pattern: “Strategic color blocking”,
+effect: “Creates hourglass illusion”,
+svg: (
+<svg viewBox="0 0 200 200" className="w-full h-full">
+<rect width="200" height="200" fill="#fbbf24" />
+<path d="M50 0 L150 0 L120 100 L150 200 L50 200 L80 100 Z" fill="#f59e0b" />
+<rect x="70" y="80" width="60" height="40" fill="#d97706" />
+</svg>
+)
+},
+{
+id: 4,
+name: “Hip Balance”,
+pattern: “Diagonal geometry”,
+effect: “Minimizes hip width while adding visual interest”,
+svg: (
+<svg viewBox="0 0 200 200" className="w-full h-full">
+<rect width="200" height="200" fill="#8b5cf6" />
+<polygon points="0,0 100,50 0,100" fill="#7c3aed" />
+<polygon points="200,100 100,50 200,0" fill="#7c3aed" />
+<polygon points="0,200 100,150 0,100" fill="#6d28d9" />
+<polygon points="200,100 100,150 200,200" fill="#6d28d9" />
+</svg>
+)
+}
+];
+
+const selectDesign = (design) => {
+setSelectedDesigns(prev => {
+const exists = prev.find(d => d.id === design.id);
+if (exists) {
+return prev.filter(d => d.id !== design.id);
+} else if (prev.length < 3) {
+return […prev, design];
+}
+return prev;
+});
+};
+
+const generateFinalDesign = () => {
+setCurrentStep(3);
+};
+
+const resetApp = () => {
+setCurrentStep(1);
+setUploadedImage(null);
+setBodyAnalysis(null);
+setSelectedDesigns([]);
+setIsProcessing(false);
+};
+
+return (
+<div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-4">
+<div className="max-w-6xl mx-auto">
+{/* Header */}
+<div className="text-center mb-8">
+<h1 className="text-4xl font-bold text-gray-800 mb-2">
+AI Body Optimization Clothing
+</h1>
+<p className="text-gray-600 text-lg">
+Custom designs that enhance your natural silhouette
+</p>
+</div>
+
+```
+    {/* Progress Bar */}
+    <div className="flex justify-center mb-8">
+      <div className="flex items-center space-x-4">
+        {[1, 2, 3].map((step) => (
+          <div key={step} className="flex items-center">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
+              currentStep >= step ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-500'
+            }`}>
+              {step}
+            </div>
+            {step < 3 && (
+              <div className={`w-16 h-1 ${
+                currentStep > step ? 'bg-blue-500' : 'bg-gray-200'
+              }`} />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Step Content */}
+    <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      {currentStep === 1 && (
+        <div className="p-8">
+          <h2 className="text-2xl font-bold text-center mb-6 flex items-center justify-center">
+            <Camera className="mr-2" />
+            Upload Your Photo
+          </h2>
+          
+          <div className="max-w-md mx-auto">
+            <div 
+              className="border-4 border-dashed border-blue-300 rounded-xl p-12 text-center cursor-pointer hover:border-blue-400 transition-colors"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {uploadedImage ? (
+                <div className="space-y-4">
+                  <img 
+                    src={uploadedImage} 
+                    alt="Uploaded" 
+                    className="max-h-64 mx-auto rounded-lg shadow-md object-contain"
+                  />
+                  {isProcessing && (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                      <span className="text-blue-600">Analyzing your body type...</span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <Upload className="mx-auto h-16 w-16 text-blue-400" />
+                  <p className="text-gray-600">
+                    Click to upload a full-body photo
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    Front-facing, well-lit photos work best
+                  </p>
+                </div>
+              )}
+            </div>
+            
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </div>
+        </div>
+      )}
+
+      {currentStep === 2 && bodyAnalysis && (
+        <div className="p-8">
+          <h2 className="text-2xl font-bold text-center mb-6 flex items-center justify-center">
+            <Zap className="mr-2" />
+            AI Analysis & Design Recommendations
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            {/* Body Analysis */}
+            <div className="space-y-6">
+              <div className="bg-blue-50 p-6 rounded-xl">
+                <h3 className="font-bold text-lg mb-4 flex items-center">
+                  <Ruler className="mr-2" />
+                  Body Analysis
+                </h3>
+                <div className="space-y-3">
+                  <p><strong>Body Type:</strong> {bodyAnalysis.bodyType}</p>
+                  <div>
+                    <strong>Key Measurements:</strong>
+                    <ul className="mt-2 space-y-1">
+                      {Object.entries(bodyAnalysis.measurements).map(([key, value]) => (
+                        <li key={key} className="capitalize">
+                          {key}: {value}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-green-50 p-6 rounded-xl">
+                <h3 className="font-bold text-lg mb-4 flex items-center">
+                  <Eye className="mr-2" />
+                  Style Recommendations
+                </h3>
+                <ul className="space-y-2">
+                  {bodyAnalysis.recommendations.map((rec, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="text-green-500 mr-2">•</span>
+                      {rec}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Design Selection */}
+            <div>
+              <h3 className="font-bold text-lg mb-4 flex items-center">
+                <Palette className="mr-2" />
+                Choose Your Patterns (Select up to 3)
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {designPatterns.map((design) => (
+                  <div 
+                    key={design.id}
+                    className={`border-2 rounded-xl p-4 cursor-pointer transition-all hover:scale-105 ${
+                      selectedDesigns.find(d => d.id === design.id)
+                        ? 'border-blue-500 bg-blue-50 shadow-md ring-2 ring-blue-200' 
+                        : 'border-gray-200 hover:border-blue-300 hover:shadow-lg'
+                    }`}
+                    onClick={() => selectDesign(design)}
+                  >
+                    <div className="h-24 mb-3 rounded-lg overflow-hidden border border-gray-100">
+                      {design.svg}
+                    </div>
+                    <h4 className="font-semibold text-sm mb-1">{design.name}</h4>
+                    <p className="text-xs text-gray-600 leading-relaxed">{design.effect}</p>
+                    {selectedDesigns.find(d => d.id === design.id) && (
+                      <div className="mt-2 text-blue-600 text-xs font-medium">✓ Selected</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              
+              {selectedDesigns.length > 0 && (
+                <button
+                  onClick={generateFinalDesign}
+                  className="w-full mt-6 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  Generate Custom Design ({selectedDesigns.length} pattern{selectedDesigns.length !== 1 ? 's' : ''} selected)
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {currentStep === 3 && (
+        <div className="p-8">
+          <h2 className="text-2xl font-bold text-center mb-6 flex items-center justify-center">
+            <Download className="mr-2" />
+            Your Custom Design
+          </h2>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Before/After Visualization */}
+              <div className="space-y-6">
+                <div className="text-center">
+                  <h3 className="font-bold text-lg mb-4">Design Preview</h3>
+                  <div className="bg-gray-100 rounded-xl p-8 relative overflow-hidden">
+                    {/* Simulated garment with selected patterns */}
+                    <div className="relative mx-auto" style={{ width: '200px', height: '300px' }}>
+                      {/* Base garment shape */}
+                      <svg viewBox="0 0 200 300" className="w-full h-full">
+                        <path 
+                          d="M50 50 L150 50 L160 100 L155 200 L150 280 L50 280 L45 200 L40 100 Z" 
+                          fill="#f8fafc" 
+                          stroke="#e2e8f0" 
+                          strokeWidth="2"
+                        />
+                        
+                        {/* Apply selected patterns */}
+                        {selectedDesigns.map((design, idx) => (
+                          <g key={design.id} opacity="0.8">
+                            <defs>
+                              <clipPath id={`garment-${idx}`}>
+                                <path d="M50 50 L150 50 L160 100 L155 200 L150 280 L50 280 L45 200 L40 100 Z" />
+                              </clipPath>
+                            </defs>
+                            <g clipPath={`url(#garment-${idx})`}>
+                              {design.id === 1 && (
+                                <>
+                                  <rect x="60" y="50" width="10" height="230" fill="#3b82f6" />
+                                  <rect x="80" y="50" width="10" height="230" fill="#1e40af" />
+                                  <rect x="100" y="50" width="10" height="230" fill="#3b82f6" />
+                                  <rect x="120" y="50" width="10" height="230" fill="#1e40af" />
+                                </>
+                              )}
+                              {design.id === 2 && (
+                                <>
+                                  <rect x="50" y="60" width="100" height="8" fill="#059669" />
+                                  <rect x="50" y="80" width="100" height="8" fill="#047857" />
+                                </>
+                              )}
+                              {design.id === 3 && (
+                                <rect x="70" y="120" width="60" height="40" fill="#f59e0b" />
+                              )}
+                              {design.id === 4 && (
+                                <>
+                                  <polygon points="50,150 100,130 50,180" fill="#7c3aed" />
+                                  <polygon points="150,180 100,130 150,150" fill="#7c3aed" />
+                                </>
+                              )}
+                            </g>
+                          </g>
+                        ))}
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-purple-50 p-6 rounded-xl">
+                  <h4 className="font-bold mb-3">Applied Optimizations:</h4>
+                  <ul className="space-y-2">
+                    {selectedDesigns.map(design => (
+                      <li key={design.id} className="flex items-start">
+                        <span className="text-purple-500 mr-2">✓</span>
+                        <span className="text-sm">{design.effect}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Order Details */}
+              <div className="space-y-6">
+                <div className="bg-gray-50 p-6 rounded-xl">
+                  <h3 className="font-bold text-lg mb-4">Order Details</h3>
+                  <div className="space-y-3">
+                    <p><strong>Design Type:</strong> Custom {bodyAnalysis.bodyType} Optimization</p>
+                    <p><strong>Patterns:</strong> {selectedDesigns.length} selected</p>
+                    <p><strong>Size:</strong> Custom fit based on measurements</p>
+                    <p><strong>Estimated Price:</strong> $89 - $149</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+                    Order Custom Garment - $129
+                  </button>
+                  <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-colors">
+                    Save Design & Get Quote
+                  </button>
+                  <button 
+                    onClick={resetApp}
+                    className="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-xl transition-colors flex items-center justify-center"
+                  >
+                    <RotateCcw className="mr-2 h-4 w-4" />
+                    Start Over
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+
+    {/* Footer Info */}
+    <div className="text-center mt-8 text-gray-500">
+      <p className="text-sm">
+        This is a prototype demonstration. Actual AI body analysis would use computer vision and machine learning models.
+      </p>
+    </div>
+  </div>
+</div>
+```
+
+);
+};
+
+export default BodyOptimizationApp;
