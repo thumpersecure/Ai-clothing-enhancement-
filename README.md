@@ -53,29 +53,30 @@ Core Features Needed:
 
 ![image](https://github.com/user-attachments/assets/96532df7-32a1-43af-b7fc-76a312211fc3)
 
-![image](https://github.com/user-attachments/assets/7d0df440-19cb-453b-86af-30d6a9f1e554)
+![image](https://github.com/user-attachments/assets/22f8f224-40b3-459f-b15f-424b4d765356)
 
-![image](https://github.com/user-attachments/assets/0bc0a61c-1ad9-4901-bfb9-56b3c39813a8)
+![image](https://github.com/user-attachments/assets/d2a820ce-2167-4327-93e6-7062c4729c7a)
 
-![image](https://github.com/user-attachments/assets/70fa3707-fda8-43cb-990a-0bc75978338d)
+![image](https://github.com/user-attachments/assets/5f52923f-6e82-4059-beeb-1537b5702214)
 
-![image](https://github.com/user-attachments/assets/9e31b47a-1451-45b1-95d4-8d64032d063f)
+![image](https://github.com/user-attachments/assets/160c8b31-4df3-40fd-8bba-48543012cc23)
 
-![image](https://github.com/user-attachments/assets/7cc35508-5404-4fbf-97f3-02cb18372872)
+![image](https://github.com/user-attachments/assets/2b4550de-a18d-4c67-994b-294d9bad8c72)
 
-![image](https://github.com/user-attachments/assets/bc1d39d0-8032-4b99-9c9b-94d0aea29605)
-
-![image](https://github.com/user-attachments/assets/7b4a46b3-2fc4-47f5-b92f-f270bfa3e629)
-
-![image](https://github.com/user-attachments/assets/57082d13-0b77-4665-8478-198797edd51e)
+![image](https://github.com/user-attachments/assets/f204f21c-c5a9-4345-8fa3-209d3f6a5df2)
 
 
-![image](https://github.com/user-attachments/assets/013ed678-e808-4240-b9f7-2077cbf860a5)
+
+![image](https://github.com/user-attachments/assets/7768d943-d570-4cd1-ba74-ceb65107e7b7)
 
 
-![image](https://github.com/user-attachments/assets/8707e445-66c0-4919-b480-b43ad0ed6392)
 
-![image](https://github.com/user-attachments/assets/060b8089-553d-47fc-8ab5-ebdb38050238)
+
+
+
+
+
+
 
 
 
